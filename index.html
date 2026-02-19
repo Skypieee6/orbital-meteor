@@ -1,290 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NovaDash — All-in-One Dashboard</title>
-  <meta name="description" content="A stunning all-in-one dashboard with Task Manager, Pomodoro Timer, Color Palette Generator, Markdown Editor, and Weather Widget." />
+  <title>OrbitalMeteor — Explore the Cosmos</title>
+  <meta name="description"
+    content="OrbitalMeteor — A stunning space-themed experience with animated meteors, orbiting planets, and cosmic features." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <!-- Marked.js for markdown parsing -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
+
 <body>
-  <div class="app">
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-brand">
-        <span class="brand-icon">⚡</span>
-        <span class="brand-name">NovaDash</span>
+  <!-- ── STARFIELD CANVAS ── -->
+  <canvas id="starCanvas"></canvas>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <span class="logo-icon">☄️</span>
+      <span>Orbital<span class="accent">Meteor</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#features" class="nav-link">Features</a></li>
+      <li><a href="#planets" class="nav-link">Planets</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Launch Mission ✦</button>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">☄ WELCOME TO THE COSMOS</div>
+      <h1 class="hero-title">
+        Discover the<br />
+        <span class="gradient-text">Orbital Universe</span>
+      </h1>
+      <p class="hero-subtitle">
+        Journey through an animated cosmos of shooting meteors, drifting planets,
+        and infinite starfields. Your mission starts here.
+      </p>
+      <div class="hero-cta-group">
+        <button class="btn-primary">Explore Now ✦</button>
+        <button class="btn-ghost">Watch Demo ▶</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="8">0</span>
+          <span class="stat-label">PLANETS</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="2000">0</span>
+          <span class="stat-label">STARS RENDERED</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="147">0</span>
+          <span class="stat-label">MILLION KM TO SUN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main animated planet -->
+    <div class="planet-container">
+      <div class="planet" id="mainPlanet">
+        <div class="planet-surface"></div>
+        <div class="planet-ring"></div>
+        <div class="planet-glow"></div>
+        <div class="moon"></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FEATURES
+  ══════════════════════════════════════ -->
+  <section id="features">
+    <div class="section-header">
+      <p class="section-tag">⚡ WHAT WE OFFER</p>
+      <h2 class="section-title">Cosmic <span class="gradient-text">Features</span></h2>
+      <p class="section-sub">Built for those who dream beyond the atmosphere — everything you need to navigate the
+        stars.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card featured" data-delay="0">
+        <div class="card-glow"></div>
+        <span class="card-badge">★ FEATURED</span>
+        <span class="card-icon">🌌</span>
+        <h3>Live Starfield Engine</h3>
+        <p>A real-time canvas rendering engine simulates thousands of twinkling stars with parallax depth and adaptive
+          density based on screen size.</p>
       </div>
 
-      <nav class="sidebar-nav">
-        <button class="nav-btn active" id="nav-tasks" data-module="tasks" title="Task Manager">
-          <span class="nav-icon">✅</span>
-          <span class="nav-label">Tasks</span>
-        </button>
-        <button class="nav-btn" id="nav-pomodoro" data-module="pomodoro" title="Pomodoro Timer">
-          <span class="nav-icon">⏱️</span>
-          <span class="nav-label">Pomodoro</span>
-        </button>
-        <button class="nav-btn" id="nav-palette" data-module="palette" title="Color Palette">
-          <span class="nav-icon">🎨</span>
-          <span class="nav-label">Palette</span>
-        </button>
-        <button class="nav-btn" id="nav-markdown" data-module="markdown" title="Markdown Editor">
-          <span class="nav-icon">📝</span>
-          <span class="nav-label">Markdown</span>
-        </button>
-        <button class="nav-btn" id="nav-weather" data-module="weather" title="Weather">
-          <span class="nav-icon">🌤️</span>
-          <span class="nav-label">Weather</span>
-        </button>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="time-display" id="sidebar-clock"></div>
+      <div class="feature-card" data-delay="100">
+        <div class="card-glow"></div>
+        <span class="card-icon">☄️</span>
+        <h3>Meteor Shower FX</h3>
+        <p>Spectacular animated meteor showers streak across the sky with gradient trails, randomised angles, speeds,
+          and graceful fade-outs.</p>
       </div>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
+      <div class="feature-card" data-delay="200">
+        <div class="card-glow"></div>
+        <span class="card-icon">🪐</span>
+        <h3>Interactive Planet</h3>
+        <p>A fully lit, ring-bearing planet that follows your cursor with smooth lerp-based parallax — bringing the
+          cosmos to life with your movement.</p>
+      </div>
 
-      <!-- Toast Notification -->
-      <div class="toast" id="toast"></div>
+      <div class="feature-card" data-delay="300">
+        <div class="card-glow"></div>
+        <span class="card-icon">🌙</span>
+        <h3>Orbiting Moon</h3>
+        <p>A moon gracefully orbits the planet in perpetual animation — a small but mesmerising detail that completes
+          the planetary scene.</p>
+      </div>
 
-      <!-- ==================== TASKS MODULE ==================== -->
-      <section class="module active" id="module-tasks">
-        <div class="module-header">
-          <h1 class="module-title">Task Manager</h1>
-          <p class="module-subtitle">Stay organized and focused</p>
+      <div class="feature-card" data-delay="400">
+        <div class="card-glow"></div>
+        <span class="card-icon">📡</span>
+        <h3>Scroll Intelligence</h3>
+        <p>Navbar transforms as you scroll, active nav links track your position, and feature cards animate into view at
+          perfect timing.</p>
+      </div>
+
+      <div class="feature-card" data-delay="500">
+        <div class="card-glow"></div>
+        <span class="card-icon">💫</span>
+        <h3>Ripple Interactions</h3>
+        <p>Every button click spawns a satisfying ripple wave. Every hover glows. Every interaction feels alive and
+          intentional.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PLANETS
+  ══════════════════════════════════════ -->
+  <section id="planets">
+    <div class="section-header">
+      <p class="section-tag">🔭 OUR SOLAR SYSTEM</p>
+      <h2 class="section-title">Meet the <span class="gradient-text">Planets</span></h2>
+      <p class="section-sub">Hover over each world to reveal its gravitational pull. Every planet tells a story written
+        in light and gravity.</p>
+    </div>
+
+    <div class="planets-row">
+
+      <div class="planet-card">
+        <div class="planet-orb mercury"></div>
+        <div class="planet-info">
+          <h4>Mercury</h4>
+          <span class="distance">57.9M km</span>
         </div>
+      </div>
 
-        <div class="tasks-controls">
-          <div class="task-input-group">
-            <input type="text" id="task-input" class="input" placeholder="Add a new task..." maxlength="100" />
-            <select id="task-priority" class="select">
-              <option value="high">🔴 High</option>
-              <option value="medium" selected>🟡 Medium</option>
-              <option value="low">🟢 Low</option>
-            </select>
-            <input type="date" id="task-due" class="input input-date" />
-            <button class="btn btn-primary" id="task-add-btn">Add Task</button>
-          </div>
-
-          <div class="task-filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="active">Active</button>
-            <button class="filter-btn" data-filter="completed">Done</button>
-            <button class="filter-btn" data-filter="high">🔴 High</button>
-            <button class="filter-btn" data-filter="medium">🟡 Medium</button>
-            <button class="filter-btn" data-filter="low">🟢 Low</button>
-          </div>
+      <div class="planet-card">
+        <div class="planet-orb venus"></div>
+        <div class="planet-info">
+          <h4>Venus</h4>
+          <span class="distance">108.2M km</span>
         </div>
+      </div>
 
-        <div class="task-stats">
-          <div class="stat-card">
-            <span class="stat-num" id="stat-total">0</span>
-            <span class="stat-label">Total</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-num" id="stat-active">0</span>
-            <span class="stat-label">Active</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-num" id="stat-done">0</span>
-            <span class="stat-label">Done</span>
-          </div>
-          <div class="stat-card">
-            <div class="progress-bar-wrap">
-              <div class="progress-bar-fill" id="task-progress-bar"></div>
-            </div>
-            <span class="stat-label">Progress</span>
-          </div>
+      <div class="planet-card">
+        <div class="active-badge">◉ LIVE</div>
+        <div class="planet-orb earth"></div>
+        <div class="planet-info">
+          <h4>Earth</h4>
+          <span class="distance">149.6M km</span>
         </div>
+      </div>
 
-        <div class="task-list" id="task-list">
-          <div class="empty-state" id="tasks-empty">
-            <span class="empty-icon">📋</span>
-            <p>No tasks yet. Add one above!</p>
-          </div>
+      <div class="planet-card">
+        <div class="planet-orb mars"></div>
+        <div class="planet-info">
+          <h4>Mars</h4>
+          <span class="distance">227.9M km</span>
         </div>
-      </section>
+      </div>
 
-      <!-- ==================== POMODORO MODULE ==================== -->
-      <section class="module" id="module-pomodoro">
-        <div class="module-header">
-          <h1 class="module-title">Pomodoro Timer</h1>
-          <p class="module-subtitle">Work in focused intervals</p>
+      <div class="planet-card">
+        <div class="planet-orb jupiter"></div>
+        <div class="planet-info">
+          <h4>Jupiter</h4>
+          <span class="distance">778.3M km</span>
         </div>
+      </div>
 
-        <div class="pomodoro-container">
-          <div class="pomo-mode-tabs">
-            <button class="pomo-tab active" id="pomo-work-tab" data-mode="work">Work</button>
-            <button class="pomo-tab" id="pomo-break-tab" data-mode="break">Short Break</button>
-            <button class="pomo-tab" id="pomo-long-tab" data-mode="long">Long Break</button>
-          </div>
-
-          <div class="pomo-ring-wrap">
-            <svg class="pomo-ring" viewBox="0 0 220 220" id="pomo-svg">
-              <circle class="ring-bg" cx="110" cy="110" r="95" />
-              <circle class="ring-fill" cx="110" cy="110" r="95" id="pomo-ring-fill" />
-            </svg>
-            <div class="pomo-time-display">
-              <span class="pomo-time" id="pomo-time">25:00</span>
-              <span class="pomo-status" id="pomo-status">Ready</span>
-            </div>
-          </div>
-
-          <div class="pomo-controls">
-            <button class="btn btn-ghost pomo-ctrl" id="pomo-reset-btn" title="Reset">⏮</button>
-            <button class="btn btn-primary pomo-ctrl pomo-main-btn" id="pomo-start-btn">Start</button>
-            <button class="btn btn-ghost pomo-ctrl" id="pomo-skip-btn" title="Skip">⏭</button>
-          </div>
-
-          <div class="pomo-sessions">
-            <div class="session-dots" id="session-dots">
-              <span class="dot" data-i="0"></span>
-              <span class="dot" data-i="1"></span>
-              <span class="dot" data-i="2"></span>
-              <span class="dot" data-i="3"></span>
-            </div>
-            <p class="session-label">Sessions completed: <strong id="session-count">0</strong></p>
-          </div>
-
-          <div class="pomo-settings">
-            <label>Work <input type="number" id="pomo-work-len" class="input input-sm" value="25" min="1" max="60" />min</label>
-            <label>Break <input type="number" id="pomo-break-len" class="input input-sm" value="5" min="1" max="30" />min</label>
-            <label>Long Break <input type="number" id="pomo-long-len" class="input input-sm" value="15" min="1" max="60" />min</label>
-          </div>
+      <div class="planet-card">
+        <div class="planet-orb saturn"></div>
+        <div class="planet-info">
+          <h4>Saturn</h4>
+          <span class="distance">1.43B km</span>
         </div>
-      </section>
+      </div>
 
-      <!-- ==================== PALETTE MODULE ==================== -->
-      <section class="module" id="module-palette">
-        <div class="module-header">
-          <h1 class="module-title">Color Palette Generator</h1>
-          <p class="module-subtitle">Discover beautiful color harmonies</p>
-        </div>
+    </div>
+  </section>
 
-        <div class="palette-controls">
-          <select id="harmony-mode" class="select">
-            <option value="random">🎲 Random</option>
-            <option value="complementary">🔁 Complementary</option>
-            <option value="triadic">🔺 Triadic</option>
-            <option value="analogous">🌊 Analogous</option>
-            <option value="split-complementary">✂️ Split-Complementary</option>
-            <option value="tetradic">🔷 Tetradic</option>
-          </select>
-          <button class="btn btn-primary" id="gen-palette-btn">✨ Generate Palette</button>
-          <button class="btn btn-ghost" id="save-palette-btn">💾 Save Palette</button>
-        </div>
+  <!-- ══════════════════════════════════════
+       CONTACT / NEWSLETTER
+  ══════════════════════════════════════ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-orb"></div>
+      <p class="section-tag">✉ JOIN THE MISSION</p>
+      <h2 class="section-title">Stay in <span class="gradient-text">Orbit</span></h2>
+      <p class="contact-sub">Get mission updates, cosmic discoveries, and stargazing tips delivered straight to your
+        inbox. No spam — just stardust.</p>
 
-        <div class="swatches-container" id="swatches-container"></div>
+      <form class="subscribe-form" id="subscribeForm">
+        <input type="email" id="emailInput" class="email-input" placeholder="your@email.com" required />
+        <button type="submit" class="btn-primary">Join Mission ✦</button>
+      </form>
 
-        <div class="saved-palettes-section">
-          <h2 class="section-title">Saved Palettes</h2>
-          <div class="saved-palettes" id="saved-palettes">
-            <p class="muted-text" id="no-saved-msg">No saved palettes yet.</p>
-          </div>
-        </div>
-      </section>
+      <p class="success-msg" id="successMsg">🚀 You're on board! Welcome to the crew, astronaut.</p>
 
-      <!-- ==================== MARKDOWN MODULE ==================== -->
-      <section class="module" id="module-markdown">
-        <div class="module-header">
-          <h1 class="module-title">Markdown Editor</h1>
-          <p class="module-subtitle">Write and preview in real time</p>
-        </div>
+      <div class="social-links">
+        <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
+        <a href="#" class="social-btn" title="GitHub">⌨</a>
+        <a href="#" class="social-btn" title="Discord">💬</a>
+        <a href="#" class="social-btn" title="YouTube">▶</a>
+      </div>
+    </div>
+  </section>
 
-        <div class="md-toolbar">
-          <button class="md-tool-btn" data-action="bold" title="Bold"><b>B</b></button>
-          <button class="md-tool-btn" data-action="italic" title="Italic"><i>I</i></button>
-          <button class="md-tool-btn" data-action="heading" title="Heading">H1</button>
-          <button class="md-tool-btn" data-action="link" title="Link">🔗</button>
-          <button class="md-tool-btn" data-action="code" title="Inline Code">&lt;/&gt;</button>
-          <button class="md-tool-btn" data-action="codeblock" title="Code Block">```</button>
-          <button class="md-tool-btn" data-action="list" title="Bullet List">• List</button>
-          <button class="md-tool-btn" data-action="quote" title="Blockquote">❝</button>
-          <button class="md-tool-btn" data-action="hr" title="Horizontal Rule">—</button>
-          <div class="md-toolbar-spacer"></div>
-          <button class="btn btn-ghost md-tool-btn" id="md-clear-btn">🗑 Clear</button>
-          <button class="btn btn-ghost md-tool-btn" id="md-copy-btn">📋 Copy</button>
-        </div>
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">☄️</span>
+        <span>Orbital<span class="accent">Meteor</span></span>
+      </div>
+      <p class="footer-copy">© 2026 OrbitalMeteor. Crafted among the stars.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">About</a>
+      </div>
+    </div>
+  </footer>
 
-        <div class="md-panes">
-          <div class="md-pane">
-            <div class="pane-label">Editor</div>
-            <textarea class="md-editor" id="md-editor" placeholder="Start writing Markdown here...
-
-# Hello, World!
-**Bold**, *italic*, `code`, [link](url)
-
-```js
-console.log('Hello!');
-```"></textarea>
-          </div>
-          <div class="md-divider"></div>
-          <div class="md-pane">
-            <div class="pane-label">Preview</div>
-            <div class="md-preview" id="md-preview"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== WEATHER MODULE ==================== -->
-      <section class="module" id="module-weather">
-        <div class="module-header">
-          <h1 class="module-title">Weather</h1>
-          <p class="module-subtitle">Stay ahead of the sky</p>
-        </div>
-
-        <div class="weather-container">
-          <div class="weather-main-card" id="weather-card">
-            <div class="weather-top">
-              <div class="weather-location">
-                <span class="weather-city" id="w-city">New York</span>
-                <span class="weather-country" id="w-country">US</span>
-              </div>
-              <button class="btn btn-ghost btn-sm" id="weather-refresh-btn">🔄 Refresh</button>
-            </div>
-
-            <div class="weather-hero">
-              <div class="weather-anim" id="weather-anim"></div>
-              <div class="weather-info">
-                <div class="weather-temp-row">
-                  <span class="weather-temp" id="w-temp">22</span>
-                  <div class="temp-unit-toggle">
-                    <button class="unit-btn active" id="unit-c">°C</button>
-                    <button class="unit-btn" id="unit-f">°F</button>
-                  </div>
-                </div>
-                <p class="weather-desc" id="w-desc">Partly Cloudy</p>
-                <div class="weather-details">
-                  <span>💧 <span id="w-humidity">60</span>%</span>
-                  <span>🌬️ <span id="w-wind">14</span> km/h</span>
-                  <span>👁️ <span id="w-visibility">10</span> km</span>
-                  <span>🌡️ Feels <span id="w-feels">20</span>°</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="forecast-section">
-            <h2 class="section-title">5-Day Forecast</h2>
-            <div class="forecast-cards" id="forecast-cards"></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="src/main.js" type="module"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
